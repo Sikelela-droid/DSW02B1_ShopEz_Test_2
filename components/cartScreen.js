@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, Image, TouchableOpacity, TextInput, Button, Alert } from 'react-native';
+import { View, Text, FlatList, Image, TouchableOpacity, TextInput, Button, Alert, StyleSheet } from 'react-native';
 import { auth, database } from '../Firebase';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
