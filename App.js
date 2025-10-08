@@ -8,7 +8,7 @@ import { auth } from './Firebase';
 import LoginScreen from './components/Login';
 import RegisterScreen from './components/Registration';
 import ProductListScreen from './components/ProductList';
-import ProductDetailScreen from './components/ProductDetailScreen';
+import ProductDetailScreen from './components/ProductDetail';
 import CartScreen from './components/cartScreen';
 
 const Stack = createStackNavigator();
