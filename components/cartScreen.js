@@ -30,12 +30,10 @@ export default function CartScreen({ navigation }) {
         setCart(val);
         AsyncStorage.setItem(`@shopez_cart_${uid}`, JSON.stringify(val));
       } else {
-        // if DB empty, try local
         loadLocalFallback();
       }
       setLoading(false);
     }, err => {
-      // on error use local fallback
       loadLocalFallback();
     });
 

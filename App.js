@@ -14,18 +14,18 @@ import CartScreen from './components/cartScreen';
 const Stack = createStackNavigator();
 
 export default function App() {
-  const [initializing, setInitializing] = useState(true);
+  const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((u) => {
       setUser(u);
-      if (initializing) setInitializing(false);
+      if (loading) setLoading(false);
     });
     return unsubscribe;
   }, []);
 
-  if (initializing) {
+  if (loading) {
     return (
       <View style={{flex:1, justifyContent:'center', alignItems:'center'}}>
         <ActivityIndicator size="large" />
@@ -37,13 +37,11 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator>
         {!user ? (
-          // Auth stack
           <>
             <Stack.Screen name="Login" component={LoginScreen} />
             <Stack.Screen name="Register" component={RegisterScreen} />
           </>
         ) : (
-          // App stack
           <>
             <Stack.Screen name="Products" component={ProductListScreen} />
             <Stack.Screen name="ProductDetail" component={ProductDetailScreen} options={{ title: 'Product Detail' }} />

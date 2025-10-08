@@ -15,8 +15,8 @@ export default function RegisterScreen({ navigation }) {
     }
     try {
       await auth.createUserWithEmailAndPassword(email.trim(), password);
-    } catch (e) {
-      setError(e.message);
+    } catch (error) {
+      setError(error.message);
     }
   };
 
@@ -29,7 +29,7 @@ export default function RegisterScreen({ navigation }) {
       <TextInput placeholder="Password" value={password} onChangeText={setPassword} style={styles.input} secureTextEntry />
       <Button title="Create account" onPress={handleRegister} />
 
-      <Text style={{marginTop:12}}>After registering you'll be logged in automatically.</Text>
+      <Text style={{marginTop:12}}>After registering you will be logged in automatically.</Text>
     </View>
   );
 }

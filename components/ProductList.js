@@ -13,7 +13,7 @@ export default function ProductListScreen({ navigation }) {
 
   useEffect(() => {
     navigation.setOptions({
-      headerRight: () => <CartIcon navigation={navigation} count={0} /> // count naive - beginner
+      headerRight: () => <CartIcon navigation={navigation} count={0} />
     });
   }, [navigation]);
 
@@ -42,8 +42,7 @@ export default function ProductListScreen({ navigation }) {
       const resp = await fetch('https://fakestoreapi.com/products/categories');
       const json = await resp.json();
       setCategories(['all', ...json]);
-    } catch (e) {
-      // ignore
+    } catch (error) {
     }
   };
 
