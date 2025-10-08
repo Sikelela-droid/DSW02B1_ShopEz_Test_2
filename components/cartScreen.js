@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, Image, TouchableOpacity, TextInput, Button, Alert, StyleSheet } from 'react-native';
-import { auth, database } from '../Firebase';
+import { auth, database, onValue, ref } from '../Firebase';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function CartScreen({ navigation }) {
@@ -21,26 +21,26 @@ export default function CartScreen({ navigation }) {
       setLoading(false);
     };
 
-    if (!uid) return;
+      if (!uid) return;
 
-    ref = database.ref(`carts/${uid}`);
-    ref.on('value', snapshot => {
-      const val = snapshot.val();
-      if (val) {
-        setCart(val);
-        AsyncStorage.setItem(`@shopez_cart_${uid}`, JSON.stringify(val));
-      } else {
+      ref = database.ref(`carts/${uid}`);
+
+      const cartRef = ref(database, `carts/${uid}`);
+      onValue(cartRef, (snapshot) => {
+        const data = snapshot.val();
+        if (data) {
+          setCart(data);
+          AsyncStorage.setItem(`@shopez_cart_${uid}`, JSON.stringify(data));
+        } else {
+          loadLocalFallback();
+        }
+        setLoading(false);  
+      }, (error) => {
         loadLocalFallback();
-      }
-      setLoading(false);
-    }, err => {
-      loadLocalFallback();
-    });
+      });    
 
-    return () => {
-      if (ref) ref.off();
-    };
   }, []);
+    
 
   const changeQty = async (productId, newQty) => {
     if (!uid) return;

@@ -14,7 +14,7 @@ export default function RegisterScreen({ navigation }) {
       return;
     }
     try {
-      await auth.createUserWithEmailAndPassword(email.trim(), password);
+      await createUserWithEmailAndPassword(auth, email.trim(), password);
     } catch (error) {
       setError(error.message);
     }

@@ -3,7 +3,7 @@ import { ActivityIndicator, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import { auth } from './Firebase';
+import { auth, onAuthStateChanged } from './Firebase';
 
 import LoginScreen from './components/Login';
 import RegisterScreen from './components/Registration';
@@ -18,7 +18,7 @@ export default function App() {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((u) => {
+    const unsubscribe = onAuthStateChanged(auth, (u) => {
       setUser(u);
       if (loading) setLoading(false);
     });

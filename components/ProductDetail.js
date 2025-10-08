@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, Image, Button, StyleSheet, TextInput, Alert } from 'react-native';
-import { auth, database } from '../Firebase';
+import { auth, database,ref, set, get, child  } from '../Firebase';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function ProductDetailScreen({ route, navigation }) {
@@ -18,7 +18,7 @@ export default function ProductDetailScreen({ route, navigation }) {
       return;
     }
     const uid = user.uid;
-    const cartRef = database.ref(`carts/${uid}`);
+    const cartRef = await set(ref(database, `carts/${uid}`), cart);
 
     try {
       const snapshot = await cartRef.once('value');

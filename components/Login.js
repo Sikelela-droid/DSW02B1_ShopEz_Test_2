@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, TextInput, Button, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { auth } from '../Firebase';
+import { auth, signInWithEmailAndPassword } from '../Firebase';
 
 export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState('');
@@ -14,7 +14,7 @@ export default function LoginScreen({ navigation }) {
       return;
     }
     try {
-      await auth.signInWithEmailAndPassword(email.trim(), password);
+      await signInWithEmailAndPassword(auth, email.trim(), password);
     } catch (e) {
       setError(e.message);
     }
